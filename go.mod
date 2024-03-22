@@ -3,7 +3,7 @@ module github.com/DIMO-Network/benthos-plugin
 go 1.22.0
 
 require (
-	github.com/ClickHouse/clickhouse-go/v2 v2.21.1
+	github.com/ClickHouse/clickhouse-go/v2 v2.22.2
 	github.com/DIMO-Network/model-garage v0.0.0-20240321200140-8d7120a55764
 	github.com/benthosdev/benthos/v4 v4.25.1
 )
@@ -162,7 +162,7 @@ require (
 	golang.org/x/tools v0.18.0 // indirect
 	golang.org/x/xerrors v0.0.0-20231012003039-104605ab7028 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
-	google.golang.org/protobuf v1.32.0 // indirect
+	google.golang.org/protobuf v1.33.0 // indirect
 	gopkg.in/jcmturner/aescts.v1 v1.0.1 // indirect
 	gopkg.in/jcmturner/dnsutils.v1 v1.0.1 // indirect
 	gopkg.in/jcmturner/gokrb5.v6 v6.1.1 // indirect
