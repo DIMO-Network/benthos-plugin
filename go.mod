@@ -5,7 +5,7 @@ go 1.22.0
 require (
 	github.com/ClickHouse/clickhouse-go/v2 v2.21.1
 	github.com/DIMO-Network/model-garage v0.0.0-20240321200140-8d7120a55764
-	github.com/benthosdev/benthos/v4 v4.25.1
+	github.com/benthosdev/benthos/v4 v4.26.0
 )
 
 require (
