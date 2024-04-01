@@ -98,14 +98,8 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/ClickHouse/ch-go v0.61.5 h1:zwR8QbYI0tsMiEcze/uIMK+Tz1D3XZXLdNrlaOpeEI4=
 github.com/ClickHouse/ch-go v0.61.5/go.mod h1:s1LJW/F/LcFs5HJnuogFMta50kKDO0lf9zzfrbl0RQg=
-github.com/ClickHouse/clickhouse-go/v2 v2.22.2 h1:T1BljsIjj+3aQog80jKMTeF4EqAUG4P6TVcCvmakYAc=
-github.com/ClickHouse/clickhouse-go/v2 v2.22.2/go.mod h1:tBhdF3f3RdP7sS59+oBAtTyhWpy0024ZxDMhgxra0QE=
-github.com/DIMO-Network/model-garage v0.0.0-20240328203219-6ce3379d43b9 h1:bu6Mlvvi11tq3SQclbc+U2iVV0C3qifTrve9zY90P2o=
-github.com/DIMO-Network/model-garage v0.0.0-20240328203219-6ce3379d43b9/go.mod h1:XuNUPtMF/27n8J58wM2wG6CcVF3u/ldxoiXDsxjjPEQ=
-github.com/DIMO-Network/model-garage v0.0.0-20240328230217-cb22ffa9a5d3 h1:IlpcXpapaQK7JpRvImHEZNHHI7RVDKWMA18fvjp1474=
-github.com/DIMO-Network/model-garage v0.0.0-20240328230217-cb22ffa9a5d3/go.mod h1:XuNUPtMF/27n8J58wM2wG6CcVF3u/ldxoiXDsxjjPEQ=
-github.com/DIMO-Network/model-garage v0.0.0-20240328233146-d0ed4572f9ac h1:8Gn5EmwWcsnxEgenwFD1IrG8eekpHhAj7kQdjN662RQ=
-github.com/DIMO-Network/model-garage v0.0.0-20240328233146-d0ed4572f9ac/go.mod h1:XuNUPtMF/27n8J58wM2wG6CcVF3u/ldxoiXDsxjjPEQ=
+github.com/ClickHouse/clickhouse-go/v2 v2.23.0 h1:srmRrkS0BR8gEut87u8jpcZ7geOob6nGj9ifrb+aKmg=
+github.com/ClickHouse/clickhouse-go/v2 v2.23.0/go.mod h1:tBhdF3f3RdP7sS59+oBAtTyhWpy0024ZxDMhgxra0QE=
 github.com/DIMO-Network/model-garage v0.0.0-20240329034304-4ff3dba72734 h1:WY6iZytG47oGn3ggYrV4q0PHmraAlYmCeU0ekjuSesI=
 github.com/DIMO-Network/model-garage v0.0.0-20240329034304-4ff3dba72734/go.mod h1:XuNUPtMF/27n8J58wM2wG6CcVF3u/ldxoiXDsxjjPEQ=
 github.com/DIMO-Network/shared v0.10.10 h1:h9b0oj0hSvR2CRp6PzqPhsSjf03XUyTGFsAlPv1g1XM=
