@@ -102,8 +102,8 @@ github.com/ClickHouse/ch-go v0.61.5 h1:zwR8QbYI0tsMiEcze/uIMK+Tz1D3XZXLdNrlaOpeE
 github.com/ClickHouse/ch-go v0.61.5/go.mod h1:s1LJW/F/LcFs5HJnuogFMta50kKDO0lf9zzfrbl0RQg=
 github.com/ClickHouse/clickhouse-go/v2 v2.23.0 h1:srmRrkS0BR8gEut87u8jpcZ7geOob6nGj9ifrb+aKmg=
 github.com/ClickHouse/clickhouse-go/v2 v2.23.0/go.mod h1:tBhdF3f3RdP7sS59+oBAtTyhWpy0024ZxDMhgxra0QE=
-github.com/DIMO-Network/devices-api v1.25.16 h1:lGOTMgWlrmTcXPhatWewm7wBwuuaDfFNcH9T2AvQjsM=
-github.com/DIMO-Network/devices-api v1.25.16/go.mod h1:SYEGPaxWzNQ2wByAnYjqGhu+IZyML0xofkqpzog6lWU=
+github.com/DIMO-Network/devices-api v1.25.18 h1:4yE2yjEZQLiGNWLFc4g64yUPAGXPYJ1yUddqozGf7KU=
+github.com/DIMO-Network/devices-api v1.25.18/go.mod h1:SYEGPaxWzNQ2wByAnYjqGhu+IZyML0xofkqpzog6lWU=
 github.com/DIMO-Network/model-garage v0.0.0-20240419194916-8e5794bbbf18 h1:rLBmxROK6CMLOodWzf7gvwdZOXK5kQx73xpoJgyeBvw=
 github.com/DIMO-Network/model-garage v0.0.0-20240419194916-8e5794bbbf18/go.mod h1:ZZzhsrNv225EqrjlgKbZMmSAaeTd8gHVZSYOJqbqVT4=
 github.com/DIMO-Network/shared v0.10.10 h1:h9b0oj0hSvR2CRp6PzqPhsSjf03XUyTGFsAlPv1g1XM=
