@@ -104,10 +104,6 @@ github.com/ClickHouse/clickhouse-go/v2 v2.23.1 h1:h+wOAjtycWeR8gNh0pKip+P4/Lyp9x
 github.com/ClickHouse/clickhouse-go/v2 v2.23.1/go.mod h1:aNap51J1OM3yxQJRgM+AlP/MPkGBCL8A74uQThoQhR0=
 github.com/DIMO-Network/devices-api v1.25.16 h1:lGOTMgWlrmTcXPhatWewm7wBwuuaDfFNcH9T2AvQjsM=
 github.com/DIMO-Network/devices-api v1.25.16/go.mod h1:SYEGPaxWzNQ2wByAnYjqGhu+IZyML0xofkqpzog6lWU=
-github.com/DIMO-Network/model-garage v0.1.1 h1:da2VSuzsqneizZrlaScruBAD4OeRvIL/aOLJTs244nw=
-github.com/DIMO-Network/model-garage v0.1.1/go.mod h1:5bHic+vrkizMOLUfFsMs0SkgOnKgbUzwTNf4i2vPmK0=
-github.com/DIMO-Network/model-garage v0.1.2-0.20240425165107-2cb5c64d213f h1:7mA0E/4oZn/p3L0O4O83SDPKQHSTVioJXvP/UIw19mk=
-github.com/DIMO-Network/model-garage v0.1.2-0.20240425165107-2cb5c64d213f/go.mod h1:5bHic+vrkizMOLUfFsMs0SkgOnKgbUzwTNf4i2vPmK0=
 github.com/DIMO-Network/model-garage v0.1.2 h1:zcpwbC52ABG1Jv/BMo+immVAbCWufkZf7HNbQoUCZJo=
 github.com/DIMO-Network/model-garage v0.1.2/go.mod h1:5bHic+vrkizMOLUfFsMs0SkgOnKgbUzwTNf4i2vPmK0=
 github.com/DIMO-Network/shared v0.10.10 h1:h9b0oj0hSvR2CRp6PzqPhsSjf03XUyTGFsAlPv1g1XM=
@@ -430,8 +426,8 @@ github.com/envoyproxy/go-control-plane v0.10.1/go.mod h1:AY7fTTXNdv/aJ2O5jwpxAPO
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
 github.com/envoyproxy/protoc-gen-validate v1.0.4 h1:gVPz/FMfvh57HdSJQyvBtF00j8JU4zdyUgIUNhlgg0A=
 github.com/envoyproxy/protoc-gen-validate v1.0.4/go.mod h1:qys6tmnRsYrQqIhm2bvKZH4Blx/1gTIZ2UKVY1M+Yew=
-github.com/ethereum/go-ethereum v1.13.14 h1:EwiY3FZP94derMCIam1iW4HFVrSgIcpsu0HwTQtm6CQ=
-github.com/ethereum/go-ethereum v1.13.14/go.mod h1:TN8ZiHrdJwSe8Cb6x+p0hs5CxhJZPbqB7hHkaUXcmIU=
+github.com/ethereum/go-ethereum v1.14.0 h1:xRWC5NlB6g1x7vNy4HDBLuqVNbtLrc7v8S6+Uxim1LU=
+github.com/ethereum/go-ethereum v1.14.0/go.mod h1:1STrq471D0BQbCX9He0hUj4bHxX2k6mt5nOQJhDNOJ8=
 github.com/fatih/color v1.13.0/go.mod h1:kLAiJbzzSOZDVNGyDpeOxJ47H46qBXwg5ILebYFFOfk=
 github.com/fatih/color v1.16.0 h1:zmkK9Ngbjj+K0yRhTVONQh1p/HknKYSlNT+vZCzyokM=
 github.com/fatih/color v1.16.0/go.mod h1:fL2Sau1YI5c0pdGEVCbKQbLXB6edEj1ZgiY4NijnWvE=
