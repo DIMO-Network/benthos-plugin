@@ -82,7 +82,7 @@ func TestGetResolutionFail(t *testing.T) {
 
 func TestGetParentAtResolutionSuccess(t *testing.T) {
 	// It's safe to pass nil in place of a logger for testing purposes
-	exec, err := bloblang.Parse("root = h3_get_parent_id(hex_id: this.hex, resolution: 4)")
+	exec, err := bloblang.Parse("root = h3_hex_parent_id(hex_id: this.hex, resolution: 4)")
 	require.NoError(t, err)
 
 	resolution, err := exec.Query(map[string]any{
@@ -94,7 +94,7 @@ func TestGetParentAtResolutionSuccess(t *testing.T) {
 
 func TestGetParentAtInvalidHexResolutionFail(t *testing.T) {
 	// It's safe to pass nil in place of a logger for testing purposes
-	exec, err := bloblang.Parse("root = h3_get_parent_id(hex_id: this.hex, resolution: 4)")
+	exec, err := bloblang.Parse("root = h3_hex_parent_id(hex_id: this.hex, resolution: 4)")
 	require.NoError(t, err)
 
 	_, err = exec.Query(map[string]any{
@@ -105,7 +105,7 @@ func TestGetParentAtInvalidHexResolutionFail(t *testing.T) {
 
 func TestGetParentAtInvalidResolutionFail(t *testing.T) {
 	// It's safe to pass nil in place of a logger for testing purposes
-	exec, err := bloblang.Parse("root = h3_get_parent_id(hex_id: this.hex, resolution: 200)")
+	exec, err := bloblang.Parse("root = h3_hex_parent_id(hex_id: this.hex, resolution: 200)")
 	require.NoError(t, err)
 
 	_, err = exec.Query(map[string]any{

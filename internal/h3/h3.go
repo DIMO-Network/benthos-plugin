@@ -114,7 +114,7 @@ func init() {
 		Param(bloblang.NewStringParam("hex_id")).
 		Param(bloblang.NewInt64Param("resolution"))
 
-	err = bloblang.RegisterFunctionV2("h3_get_parent_id", getH3ParentIdSpec, func(args *bloblang.ParsedParams) (bloblang.Function, error) {
+	err = bloblang.RegisterFunctionV2("h3_hex_parent_id", getH3ParentIdSpec, func(args *bloblang.ParsedParams) (bloblang.Function, error) {
 		hex_id, err := args.GetString("hex_id")
 		if err != nil {
 			return nil, err
