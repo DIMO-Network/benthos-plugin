@@ -12,6 +12,7 @@ require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pressly/goose v2.7.0+incompatible
 	github.com/stretchr/testify v1.9.0
+	github.com/uber/h3-go/v4 v4.1.0
 	google.golang.org/grpc v1.63.2
 )
 
