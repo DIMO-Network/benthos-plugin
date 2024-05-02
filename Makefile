@@ -13,7 +13,7 @@ VERSION   := $(shell git describe --tags || echo "v0.0.0")
 VER_CUT   := $(shell echo $(VERSION) | cut -c2-)
 
 build:
-	@CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(ARCH) \
+	@CGO_ENABLED=1 GOOS=$(GOOS) GOARCH=$(ARCH) \
 		go build -o bin/$(BIN_NAME) ./
 
 run: build
