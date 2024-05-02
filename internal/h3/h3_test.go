@@ -73,11 +73,10 @@ func TestGetResolutionFail(t *testing.T) {
 	exec, err := bloblang.Parse("root = h3_get_resolution(hex_id: this.hex)")
 	require.NoError(t, err)
 
-	resolution, err := exec.Query(map[string]any{
+	_, err = exec.Query(map[string]any{
 		"hex": "852a100b",
 	})
-	require.NoError(t, err)
-	require.Equal(t, -1, resolution)
+	require.Error(t, err)
 }
 
 func TestGetParentAtResolutionSuccess(t *testing.T) {
