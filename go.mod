@@ -3,12 +3,12 @@ module github.com/DIMO-Network/benthos-plugin
 go 1.22.0
 
 require (
-	github.com/ClickHouse/clickhouse-go/v2 v2.23.1
-	github.com/DIMO-Network/devices-api v1.25.16
+	github.com/ClickHouse/clickhouse-go/v2 v2.23.2
+	github.com/DIMO-Network/devices-api v1.25.21
 	github.com/DIMO-Network/model-garage v0.1.3-0.20240503170436-28972c848a73
-	github.com/DIMO-Network/shared v0.10.10
+	github.com/DIMO-Network/shared v0.10.12
 	github.com/benthosdev/benthos/v4 v4.27.0
-	github.com/ethereum/go-ethereum v1.13.14
+	github.com/ethereum/go-ethereum v1.14.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pressly/goose v2.7.0+incompatible
 	github.com/stretchr/testify v1.9.0
@@ -84,7 +84,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.11.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.17.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/kinesis v1.24.7 // indirect
-	github.com/aws/aws-sdk-go-v2/service/kms v1.28.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/kms v1.28.1 // indirect
 	github.com/aws/aws-sdk-go-v2/service/lambda v1.50.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.49.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sns v1.27.0 // indirect
@@ -256,8 +256,8 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/pressly/goose/v3 v3.20.0 // indirect
 	github.com/prometheus/client_golang v1.18.0 // indirect
-	github.com/prometheus/client_model v0.5.0 // indirect
-	github.com/prometheus/common v0.46.0 // indirect
+	github.com/prometheus/client_model v0.6.0 // indirect
+	github.com/prometheus/common v0.47.0 // indirect
 	github.com/prometheus/procfs v0.12.0 // indirect
 	github.com/pusher/pusher-http-go v4.0.1+incompatible // indirect
 	github.com/quipo/dependencysolver v0.0.0-20170801134659-2b009cb4ddcc // indirect
