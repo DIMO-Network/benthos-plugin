@@ -7,7 +7,7 @@ require (
 	github.com/DIMO-Network/devices-api v1.27.38
 	github.com/DIMO-Network/model-garage v0.2.11
 	github.com/DIMO-Network/nameindexer v0.0.5
-	github.com/DIMO-Network/shared v0.10.18
+	github.com/DIMO-Network/shared v0.11.0
 	github.com/docker/go-connections v0.5.0
 	github.com/ethereum/go-ethereum v1.14.7
 	github.com/patrickmn/go-cache v2.1.0+incompatible

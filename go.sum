@@ -114,8 +114,8 @@ github.com/DIMO-Network/model-garage v0.2.11 h1:3ofR3McKnngQb6ehApA9u80MfCyhugMi
 github.com/DIMO-Network/model-garage v0.2.11/go.mod h1:voOvGWwtAnazsciDVTqjPYDttIkXx0YG4xA+MIjM/8k=
 github.com/DIMO-Network/nameindexer v0.0.5 h1:b2IzxpsIHZsfV01hGKkO5ojwO5Pn9A4U1wqbrmqW69s=
 github.com/DIMO-Network/nameindexer v0.0.5/go.mod h1:EDyNhK0X1KrJlGkp72kNpkiHz+Rky20FQsVeSxxdwpM=
-github.com/DIMO-Network/shared v0.10.18 h1:NKWqIyo5plORii+hgOpXS2zUdmIHFKZuPqoo5Oaf0gk=
-github.com/DIMO-Network/shared v0.10.18/go.mod h1:LDNCMzOGA+MqXtHbvRDFS/1kl8sHMQgxAS8fFh4GKJA=
+github.com/DIMO-Network/shared v0.11.0 h1:9/GLrT2sM5a6jPzpywtzNoLRaOzq8M2DcbuSTVbLuZI=
+github.com/DIMO-Network/shared v0.11.0/go.mod h1:lm7rUB5i7Jx7t3EomtCwep0aC+sB+nlYYTJkTdUeKHM=
 github.com/DataDog/datadog-go v3.2.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3tL4fMGNddJ+vMq1mwgfaqoQ=
 github.com/DataDog/zstd v1.5.2 h1:vUG4lAyuPCXO0TLbXvPv7EB7cNK1QV/luu55UHLrrn8=
 github.com/DataDog/zstd v1.5.2/go.mod h1:g4AWEaM3yOg3HYfnJ3YIawPnVdXJh9QME85blwSAmyw=
