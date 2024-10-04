@@ -7,9 +7,10 @@ import (
 	"fmt"
 
 	"github.com/DIMO-Network/benthos-plugin/internal/service/deviceapi"
+	"github.com/DIMO-Network/model-garage/pkg/convert"
 	"github.com/DIMO-Network/model-garage/pkg/migrations"
+	"github.com/DIMO-Network/model-garage/pkg/nativestatus"
 	"github.com/DIMO-Network/model-garage/pkg/vss"
-	"github.com/DIMO-Network/model-garage/pkg/vss/convert"
 	"github.com/pressly/goose"
 	"github.com/redpanda-data/benthos/v4/public/service"
 	"golang.org/x/mod/semver"
@@ -65,7 +66,7 @@ func ctor(cfg *service.ParsedConfig, mgr *service.Resources) (service.Processor,
 
 type vssProcessor struct {
 	logger      *service.Logger
-	tokenGetter convert.TokenIDGetter
+	tokenGetter nativestatus.TokenIDGetter
 }
 
 func newVSSProcessor(lgr *service.Logger, devicesAPIGRPCAddr string) (*vssProcessor, error) {
@@ -87,14 +88,14 @@ func (v *vssProcessor) Process(ctx context.Context, msg *service.Message) (servi
 	if err != nil {
 		return nil, fmt.Errorf("failed to extract message bytes: %w", err)
 	}
-	schemaVersion := convert.GetSchemaVersion(msgBytes)
-	if semver.Compare(convert.StatusV1Converted, schemaVersion) == 0 {
+	schemaVersion := nativestatus.GetSchemaVersion(msgBytes)
+	if semver.Compare(nativestatus.StatusV1Converted, schemaVersion) == 0 {
 		// ignore v1.1 messages
 		return nil, nil
 	}
 	var partialErr *service.Message
 	var retMsgs service.MessageBatch
-	signals, err := convert.SignalsFromPayload(ctx, v.tokenGetter, msgBytes)
+	signals, err := nativestatus.SignalsFromPayload(ctx, v.tokenGetter, msgBytes)
 	if err != nil {
 		if errors.As(err, &deviceapi.NotFoundError{}) {
 			// If we do not have an Token for this device we want to drop the message. But we don't want to log an error.
