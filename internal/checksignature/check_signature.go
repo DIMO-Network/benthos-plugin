@@ -71,7 +71,7 @@ func (s *signatureProcessor) Process(_ context.Context, msg *service.Message) (s
 	return []*service.Message{msg}, nil
 }
 
-func (p *signatureProcessor) Close(ctx context.Context) error {
+func (p *signatureProcessor) Close(_ context.Context) error {
 	return nil
 }
 

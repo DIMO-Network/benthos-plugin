@@ -141,7 +141,7 @@ func TestVSSProcessorProcess(t *testing.T) {
 
 type testGetter struct{}
 
-func (t *testGetter) TokenIDFromSubject(ctx context.Context, subject string) (uint32, error) {
+func (t *testGetter) TokenIDFromSubject(_ context.Context, subject string) (uint32, error) {
 	if subject == notFoundSubject {
 		return 0, fmt.Errorf("%w: no tokenID set", deviceapi.NotFoundError{DeviceID: subject})
 	}
