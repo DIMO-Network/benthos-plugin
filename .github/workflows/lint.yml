@@ -14,19 +14,13 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.22
+          go-version: 1.23.x
 
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: install golangci-lint
-        run: make tools-golangci-lint
-
-      - name: tidy
-        run: go mod tidy
-
-      - name: build
-        run: go build
-
-      - name: Run golangci-lint
-        run: make lint
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+          only-new-issues: false

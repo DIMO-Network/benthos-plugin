@@ -71,14 +71,14 @@ func (s *signatureProcessor) Process(_ context.Context, msg *service.Message) (s
 	return []*service.Message{msg}, nil
 }
 
-func (p *signatureProcessor) Close(ctx context.Context) error {
+func (s *signatureProcessor) Close(_ context.Context) error {
 	return nil
 }
 
-// This is exact copy of the function from internal/controllers/helpers/handlers.go
 // Ecrecover mimics the ecrecover opcode, returning the address that signed
 // hash with signature. sig must have length 65 and the last byte, the recovery
 // byte usually denoted v, must be 27 or 28.
+// This is exact copy of the function from internal/controllers/helpers/handlers.go
 func Ecrecover(hash, sig []byte) (common.Address, error) {
 	if len(sig) != sigLen {
 		return zeroAddr, fmt.Errorf("signature has invalid length %d", len(sig))
