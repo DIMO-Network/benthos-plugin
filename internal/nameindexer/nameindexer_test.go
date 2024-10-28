@@ -3,6 +3,7 @@ package nameindexer
 import (
 	"context"
 	"fmt"
+	"strings"
 	"testing"
 	"time"
 
@@ -46,8 +47,7 @@ subject:
 				PrimaryFiller:   "MM",
 				SecondaryFiller: "00",
 				DataType:        "FP/v0.0.1",
-				Subject: nameindexer.Subject{
-					Identifier: nameindexer.Address(common.HexToAddress("0xc57d6d57fca59d0517038c968a1b831b071fa679"))},
+				Subject:         common.HexToAddress("0xc57d6d57fca59d0517038c968a1b831b071fa679").String()[2:],
 			},
 			expectErr: false,
 		},
@@ -114,9 +114,7 @@ subject:
 				PrimaryFiller:   "XX",
 				SecondaryFiller: "YY",
 				DataType:        "CustomType",
-				Subject: nameindexer.Subject{
-					Identifier: nameindexer.Address(common.HexToAddress("0xc57d6d57fca59d0517038c968a1b831b071fa679")),
-				},
+				Subject:         common.HexToAddress("c57d6d57fca59d0517038c968a1b831b071fa679").String()[2:],
 			},
 			expectErr: false,
 		},
@@ -137,9 +135,7 @@ subject:
 				PrimaryFiller:   "MM",
 				SecondaryFiller: "00",
 				DataType:        "CustomType",
-				Subject: nameindexer.Subject{
-					Identifier: nameindexer.TokenID(123),
-				},
+				Subject:         "T" + strings.Repeat("0", 39-len("123")) + "123",
 			},
 			expectErr: false,
 		},
@@ -160,9 +156,7 @@ subject:
 				PrimaryFiller:   "MM",
 				SecondaryFiller: "00",
 				DataType:        "CustomType",
-				Subject: nameindexer.Subject{
-					Identifier: nameindexer.IMEI("123456789012345"),
-				},
+				Subject:         "IMEI" + strings.Repeat("0", 40-19) + "123456789012345",
 			},
 			expectErr: false,
 		},

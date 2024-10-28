@@ -15,6 +15,7 @@ import (
 )
 
 const pluginName = "name_indexer"
+const subjectLenth = 40
 
 // Configuration specification for the processor.
 var configSpec = service.NewConfigSpec().
@@ -44,42 +45,43 @@ type Processor struct {
 	dataType        *service.InterpolatedString
 	subject         *subjectInterpolatedString
 }
+type subjectInfo uint8
+
+const (
+	typeAddress subjectInfo = iota
+	typeTokenID
+	typeIMEI
+)
 
 type subjectInterpolatedString struct {
 	interpolatedString *service.InterpolatedString
-	subjectType        nameindexer.IsIdentifier
+	subjectType        subjectInfo
 }
 
 // TryIndexSubject evaluates the subject field and returns a nameindexer.Subject.
 // The subject field can be either an address or a token_id.
-func (s *subjectInterpolatedString) TryIndexSubject(msg *service.Message) (nameindexer.Subject, error) {
+func (s *subjectInterpolatedString) TryIndexSubject(msg *service.Message) (string, error) {
 	subjectStr, err := s.interpolatedString.TryString(msg)
 	if err != nil {
-		return nameindexer.Subject{}, fmt.Errorf("failed to evaluate subject: %w", err)
+		return "", fmt.Errorf("failed to evaluate subject: %w", err)
 	}
-	switch s.subjectType.(type) {
-	case nameindexer.IMEI:
-		return nameindexer.Subject{
-			Identifier: nameindexer.IMEI(subjectStr),
-		}, nil
-	case nameindexer.Address:
+	switch s.subjectType {
+	case typeIMEI:
+		return EncodeIMEI(subjectStr), nil
+	case typeAddress:
 		if !common.IsHexAddress(subjectStr) {
-			return nameindexer.Subject{}, fmt.Errorf("address is not a valid hexadecimal address: %s", subjectStr)
+			return "", fmt.Errorf("address is not a valid hexadecimal address: %s", subjectStr)
 		}
-		return nameindexer.Subject{
-			Identifier: nameindexer.Address(common.HexToAddress(subjectStr)),
-		}, nil
-	case nameindexer.TokenID:
+		return nameindexer.EncodeAddress(common.HexToAddress(subjectStr)), nil
+	case typeTokenID:
 		tokenID, err := strconv.ParseUint(subjectStr, 10, 32)
 		if err != nil {
-			return nameindexer.Subject{}, fmt.Errorf("failed to parse token_id: %w", err)
+			return "", fmt.Errorf("failed to parse token_id: %w", err)
 		}
 		tokenID32 := uint32(tokenID)
-		return nameindexer.Subject{
-			Identifier: nameindexer.TokenID(tokenID32),
-		}, nil
+		return EncodeTokenId(tokenID32), nil
 	default:
-		return nameindexer.Subject{}, fmt.Errorf("unknown subject type")
+		return "", fmt.Errorf("unknown subject type")
 	}
 }
 
@@ -207,7 +209,7 @@ func getSubject(config *service.ParsedConfig) (*subjectInterpolatedString, error
 		}
 		return &subjectInterpolatedString{
 			interpolatedString: interpolatedString,
-			subjectType:        nameindexer.Address{},
+			subjectType:        typeAddress,
 		}, nil
 	}
 	if tokenIDSet {
@@ -217,7 +219,7 @@ func getSubject(config *service.ParsedConfig) (*subjectInterpolatedString, error
 		}
 		return &subjectInterpolatedString{
 			interpolatedString: interpolatedString,
-			subjectType:        nameindexer.TokenID(0),
+			subjectType:        typeTokenID,
 		}, nil
 	}
 	interpolatedString, err := subConfig.FieldInterpolatedString("imei")
@@ -226,7 +228,7 @@ func getSubject(config *service.ParsedConfig) (*subjectInterpolatedString, error
 	}
 	return &subjectInterpolatedString{
 		interpolatedString: interpolatedString,
-		subjectType:        nameindexer.IMEI(""),
+		subjectType:        typeIMEI,
 	}, nil
 }
 
@@ -240,4 +242,40 @@ func runMigration(dsn string) error {
 		return fmt.Errorf("failed to run migration: %w", err)
 	}
 	return nil
+}
+
+// TokenIDToString converts a token ID to a string for legacy subject encoding.
+func EncodeTokenId(tokenID uint32) string {
+	return fmt.Sprintf("T%0*d", subjectLenth-1, tokenID)
+}
+
+// IMEIToString converts an IMEI string to a string for legacy subject encoding.
+func EncodeIMEI(imei string) string {
+	fullIMEI := imei
+	if len(fullIMEI) == 14 {
+		fullIMEI += calculateCheckDigit(imei)
+	}
+	return fmt.Sprintf("IMEI%0*s", subjectLenth-4, fullIMEI)
+}
+
+// calculateCheckDigit calculates the check digit for an IMEI string. using the Luhn algorithm.
+func calculateCheckDigit(imei string) string {
+	// convert to a slice of digits
+	digits := make([]int, len(imei))
+	for i, r := range imei {
+		digits[i] = int(r - '0')
+	}
+	// calculate the check digit
+	sum := 0
+	for i := 0; i < len(digits); i++ {
+		if i%2 == 1 {
+			digits[i] *= 2
+			if digits[i] > 9 {
+				digits[i] -= 9
+			}
+		}
+		sum += digits[i]
+	}
+	checkDigit := (10 - (sum % 10))
+	return strconv.Itoa(checkDigit)
 }
