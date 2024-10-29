@@ -79,7 +79,7 @@ func (s *subjectInterpolatedString) TryIndexSubject(msg *service.Message) (strin
 			return "", fmt.Errorf("failed to parse token_id: %w", err)
 		}
 		tokenID32 := uint32(tokenID)
-		return EncodeTokenId(tokenID32), nil
+		return EncodeTokenID(tokenID32), nil
 	default:
 		return "", fmt.Errorf("unknown subject type")
 	}
@@ -244,12 +244,12 @@ func runMigration(dsn string) error {
 	return nil
 }
 
-// TokenIDToString converts a token ID to a string for legacy subject encoding.
-func EncodeTokenId(tokenID uint32) string {
+// EncodeTokenID converts a token ID to a string for legacy subject encoding.
+func EncodeTokenID(tokenID uint32) string {
 	return fmt.Sprintf("T%0*d", subjectLenth-1, tokenID)
 }
 
-// IMEIToString converts an IMEI string to a string for legacy subject encoding.
+// EncodeIMEI converts an IMEI string to a string for legacy subject encoding.
 func EncodeIMEI(imei string) string {
 	fullIMEI := imei
 	if len(fullIMEI) == 14 {
