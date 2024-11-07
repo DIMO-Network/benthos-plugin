@@ -112,8 +112,8 @@ github.com/DIMO-Network/devices-api v1.27.38 h1:FcPMfsJ1WBWRvVMp0ParmPFzAXI+C+t0
 github.com/DIMO-Network/devices-api v1.27.38/go.mod h1:XAU/MLIXItrFWZO8/+CGvRfmGMpsTBF70r9qRGq9V3w=
 github.com/DIMO-Network/model-garage v0.3.2 h1:v6BLyip7UW0ABWkPkmScFjBGyDDoQcVXJEJdVu5vI3Q=
 github.com/DIMO-Network/model-garage v0.3.2/go.mod h1:0wRJbAtwF66RZE/+6WUOPOVL3cSO9eozzuE+bQ4JWs8=
-github.com/DIMO-Network/nameindexer v0.0.9-0.20241028183723-3cf59608b9f5 h1:6UMXqHt3v3Nkm1mVsOR2XQW4SaVrTEsUo1Em+R0vKws=
-github.com/DIMO-Network/nameindexer v0.0.9-0.20241028183723-3cf59608b9f5/go.mod h1:+X3K7NN7/DTwkwex5G0e+cqyUaGoCqqk8otOyjDxN+s=
+github.com/DIMO-Network/nameindexer v0.0.10-0.20241031131836-425572ba4fe9 h1:EjmGhmuPDxWCYOJSFFASdNBXxfedTSwfaZIBAdA0PW8=
+github.com/DIMO-Network/nameindexer v0.0.10-0.20241031131836-425572ba4fe9/go.mod h1:+X3K7NN7/DTwkwex5G0e+cqyUaGoCqqk8otOyjDxN+s=
 github.com/DIMO-Network/shared v0.10.18 h1:NKWqIyo5plORii+hgOpXS2zUdmIHFKZuPqoo5Oaf0gk=
 github.com/DIMO-Network/shared v0.10.18/go.mod h1:LDNCMzOGA+MqXtHbvRDFS/1kl8sHMQgxAS8fFh4GKJA=
 github.com/DataDog/datadog-go v3.2.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3tL4fMGNddJ+vMq1mwgfaqoQ=
