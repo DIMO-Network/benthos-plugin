@@ -1,9 +1,9 @@
 
 .PHONY: clean run build install dep test lint format docker
 
+SHELL := /bin/bash
 PATHINSTBIN = $(abspath ./bin)
 export PATH := $(PATHINSTBIN):$(PATH)
-SHELL := env PATH=$(PATH) $(SHELL)
 
 BIN_NAME					?= benthos-plugin
 DEFAULT_INSTALL_DIR			:= $(go env GOPATH)/bin
