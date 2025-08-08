@@ -12,6 +12,7 @@ import (
 	_ "github.com/DIMO-Network/benthos-plugin/internal/checksignature"
 	_ "github.com/DIMO-Network/benthos-plugin/internal/dimovss"
 	_ "github.com/DIMO-Network/benthos-plugin/internal/nameindexer"
+	_ "github.com/DIMO-Network/benthos-plugin/internal/ruptela_parser"
 )
 
 func main() {

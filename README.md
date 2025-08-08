@@ -1,42 +1,76 @@
-# benthos-plugin
+# Benthos Plugin
 
-Benthos instance that includes DIMO specific processors.
+This repository contains custom processors for Benthos, a stream processing platform.
 
-## Build
+## Processors
 
-```shell
-make build
-make docker
+### check_signature
+Validates the signature of a message using Ethereum's ecrecover function.
+
+### dimovss
+Converts a Status message from a DIMO device into a list of values for insertion into clickhouse.
+
+### name_indexer
+Creates an indexable string from provided Bloblang parameters.
+
+### ruptela_parser
+Parses Ruptela hex packet data and converts it to JSON format for further processing in the pipeline.
+
+#### Configuration
+```yaml
+- type: ruptela_parser
+  ruptela_parser:
+    validate_crc: true           # Whether to validate CRC checksums
+    validate_length: true        # Whether to validate packet length
+    skip_validation: false       # Skip all validation checks
+    max_packet_size: 2048        # Maximum allowed packet size in bytes
+    max_records: 100            # Maximum number of records per packet
+    max_io_elements: 1000       # Maximum number of IO elements per record
+    enable_debug: false         # Enable debug logging
 ```
 
-## Test
+#### Usage Examples
 
-a docker-compose file is included to help with setting up a local test environment that includes a Kafka broker, Zookeeper, Clickhouse and the benthos-plugin instance.
-
-```shell
-docker-compose up -d
+**Basic usage with default settings:**
+```yaml
+- type: ruptela_parser
+  ruptela_parser: {}
 ```
 
-## Run
-
-### To generate test config file
-```sh
-./benthos-plugin create -s stdin/check_signature/stdout > test.yaml
+**Relaxed validation for testing:**
+```yaml
+- type: ruptela_parser
+  ruptela_parser:
+    validate_crc: false
+    validate_length: false
+    skip_validation: true
+    max_packet_size: 4096
+    max_records: 200
+    max_io_elements: 2000
+    enable_debug: true
 ```
 
-### To run the plugin
-```sh
-./benthos-plugin -c test.yaml
+#### Input Format
+- Single hex string: `"01EB00030EA2BC939936440006632AE87E..."`
+
+#### Output Format
+The processor outputs structured JSON containing:
+- `length`: Packet length
+- `crc`: CRC value
+- `imei`: Device IMEI
+- `command_id`: Command identifier
+- `records_flag`: Records flag
+- `num_records`: Number of records
+- `records`: Array of parsed records with GPS data, IO elements, etc.
+
+## Building
+
+```bash
+go build -o benthos-plugin .
 ```
 
-## Testing your changes
-1. Update unit tests
-2. Run `make test` to run the tests
-3. Run `make lint` to run the linter
-4. Run `make build` to build the binary
-5. Run `./benthos-plugin create -s stdin/check_signature/stdout > test.yaml` to generate test config file
-6. Run `./benthos-plugin -c test.yaml` to run the plugin
-7. Supply the plugin with a test message and check the output:
-```sh
-echo '{"data": {"timestamp":1709656316768}}' | ./benthos-plugin -c test.yaml
+## Testing
+
+```bash
+go test ./internal/...
 ```
