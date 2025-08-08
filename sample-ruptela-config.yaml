@@ -18,6 +18,7 @@ pipeline:
         max_io_elements: 1000
         enable_debug: false
         skip_validation: false
+        batch_mode: true
 
     # Alternative: relaxed validation for testing
     # - type: ruptela_parser

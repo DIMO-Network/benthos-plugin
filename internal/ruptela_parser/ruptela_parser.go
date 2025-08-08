@@ -2,6 +2,7 @@ package ruptela_parser
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -34,6 +35,9 @@ func init() {
 			Default(1000)).
 		Field(service.NewBoolField("enable_debug").
 			Description("Enable debug logging.").
+			Default(false)).
+		Field(service.NewBoolField("batch_mode").
+			Description("When enabled, outputs each record as a separate message in the batch. When disabled, outputs the entire packet as a single message.").
 			Default(false))
 
 	err := service.RegisterProcessor(pluginName, configSpec, ctor)
@@ -43,8 +47,9 @@ func init() {
 }
 
 type ruptelaProcessor struct {
-	opts   *ParserOptions
-	logger *service.Logger
+	opts      *ParserOptions
+	logger    *service.Logger
+	batchMode bool
 }
 
 func ctor(conf *service.ParsedConfig, mgr *service.Resources) (service.Processor, error) {
@@ -83,6 +88,11 @@ func ctor(conf *service.ParsedConfig, mgr *service.Resources) (service.Processor
 		return nil, fmt.Errorf("failed to parse enable_debug: %w", err)
 	}
 
+	batchMode, err := conf.FieldBool("batch_mode")
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse batch_mode: %w", err)
+	}
+
 	opts := &ParserOptions{
 		ValidateCRC:    validateCRC,
 		ValidateLength: validateLength,
@@ -94,8 +104,9 @@ func ctor(conf *service.ParsedConfig, mgr *service.Resources) (service.Processor
 	}
 
 	return &ruptelaProcessor{
-		opts:   opts,
-		logger: mgr.Logger(),
+		opts:      opts,
+		logger:    mgr.Logger(),
+		batchMode: batchMode,
 	}, nil
 }
 
@@ -123,17 +134,75 @@ func (r *ruptelaProcessor) Process(ctx context.Context, msg *service.Message) (s
 		return nil, fmt.Errorf("failed to parse ruptela packet: %w", err)
 	}
 
-	// Convert packet to JSON
-	jsonData, err := packet.ToJSONCompact()
-	if err != nil {
-		return nil, fmt.Errorf("failed to convert packet to JSON: %w", err)
+	if r.batchMode {
+		// Output each record as a separate message
+		var batch service.MessageBatch
+		for i, record := range packet.Records {
+			// Convert record to map and add additional fields
+			recordMap := map[string]interface{}{
+				"IMEI":       packet.IMEI,
+				"COMMAND_ID": packet.CommandID,
+			}
+
+			// Add all record fields to the map
+			recordBytes, err := json.Marshal(record)
+			if err != nil {
+				return nil, fmt.Errorf("failed to marshal record %d: %w", i, err)
+			}
+
+			var recordFields map[string]interface{}
+			if err := json.Unmarshal(recordBytes, &recordFields); err != nil {
+				return nil, fmt.Errorf("failed to unmarshal record %d: %w", i, err)
+			}
+
+			// Merge the additional fields with record fields
+			for key, value := range recordFields {
+				recordMap[key] = value
+			}
+
+			// Convert record to JSON
+			recordJSON, err := json.Marshal(recordMap)
+			if err != nil {
+				return nil, fmt.Errorf("failed to convert record %d to JSON: %w", i, err)
+			}
+
+			// Create new message for this record
+			newMsg := msg.Copy()
+			newMsg.SetBytes(recordJSON)
+			batch = append(batch, newMsg)
+		}
+
+		// If no records, still output the packet info
+		if len(packet.Records) == 0 {
+			packetData := map[string]interface{}{
+				"IMEI":       packet.IMEI,
+				"COMMAND_ID": packet.CommandID,
+			}
+
+			packetJSON, err := json.Marshal(packetData)
+			if err != nil {
+				return nil, fmt.Errorf("failed to convert packet to JSON: %w", err)
+			}
+
+			newMsg := msg.Copy()
+			newMsg.SetBytes(packetJSON)
+			batch = append(batch, newMsg)
+		}
+
+		return batch, nil
+	} else {
+		// Convert entire packet to JSON (original behavior)
+		jsonData, err := packet.ToJSONCompact()
+		if err != nil {
+			return nil, fmt.Errorf("failed to convert packet to JSON: %w", err)
+		}
+
+		// Create new message with parsed data
+		newMsg := msg.Copy()
+		newMsg.SetBytes(jsonData)
+
+		return service.MessageBatch{newMsg}, nil
 	}
-
-	// Create new message with parsed data
-	newMsg := msg.Copy()
-	newMsg.SetBytes(jsonData)
-
-	return service.MessageBatch{newMsg}, nil
 }
 
 func (r *ruptelaProcessor) Close(ctx context.Context) error {

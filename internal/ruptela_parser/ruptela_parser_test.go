@@ -20,6 +20,7 @@ func TestRuptelaParserProcessor(t *testing.T) {
 		maxPacketSize  int
 		maxIOElements  int
 		skipValidation bool
+		batchMode      bool
 	}{
 		{
 			name:           "Empty input",
@@ -30,6 +31,7 @@ func TestRuptelaParserProcessor(t *testing.T) {
 			maxPacketSize:  2048,
 			maxIOElements:  1000,
 			skipValidation: false,
+			batchMode:      false,
 		},
 		{
 			name:           "Invalid hex string",
@@ -40,6 +42,7 @@ func TestRuptelaParserProcessor(t *testing.T) {
 			maxPacketSize:  2048,
 			maxIOElements:  1000,
 			skipValidation: false,
+			batchMode:      false,
 		},
 		{
 			name:           "Odd length hex string",
@@ -50,6 +53,7 @@ func TestRuptelaParserProcessor(t *testing.T) {
 			maxPacketSize:  2048,
 			maxIOElements:  1000,
 			skipValidation: false,
+			batchMode:      false,
 		},
 		{
 			name:           "Invalid hex characters",
@@ -60,6 +64,7 @@ func TestRuptelaParserProcessor(t *testing.T) {
 			maxPacketSize:  2048,
 			maxIOElements:  1000,
 			skipValidation: false,
+			batchMode:      false,
 		},
 		{
 			name:           "Too short packet",
@@ -70,6 +75,7 @@ func TestRuptelaParserProcessor(t *testing.T) {
 			maxPacketSize:  2048,
 			maxIOElements:  1000,
 			skipValidation: false,
+			batchMode:      false,
 		},
 		{
 			name:           "Invalid CRC with validation enabled",
@@ -80,6 +86,7 @@ func TestRuptelaParserProcessor(t *testing.T) {
 			maxPacketSize:  2048,
 			maxIOElements:  1000,
 			skipValidation: false,
+			batchMode:      false,
 		},
 		{
 			name:           "Packet too large",
@@ -90,6 +97,7 @@ func TestRuptelaParserProcessor(t *testing.T) {
 			maxPacketSize:  10, // Set very small to trigger the error
 			maxIOElements:  1000,
 			skipValidation: false,
+			batchMode:      false,
 		},
 		{
 			name:           "Invalid packet with validation disabled - should return error not panic",
@@ -100,6 +108,7 @@ func TestRuptelaParserProcessor(t *testing.T) {
 			maxPacketSize:  2048,
 			maxIOElements:  1000,
 			skipValidation: true,
+			batchMode:      false,
 		},
 		{
 			name:           "Skip validation bypasses size limit",
@@ -110,6 +119,7 @@ func TestRuptelaParserProcessor(t *testing.T) {
 			maxPacketSize:  10, // Set very small but should be ignored with SkipValidation
 			maxIOElements:  1000,
 			skipValidation: true,
+			batchMode:      false,
 		},
 		{
 			name:           "Custom error types - validation error",
@@ -120,6 +130,18 @@ func TestRuptelaParserProcessor(t *testing.T) {
 			maxPacketSize:  2048,
 			maxIOElements:  1000,
 			skipValidation: false,
+			batchMode:      false,
+		},
+		{
+			name:           "Batch mode enabled",
+			input:          "000D00030EA2BC9399364400010000", // Valid packet structure
+			expectErr:      true,
+			errorMsg:       "insufficient data",
+			validateCRC:    false,
+			maxPacketSize:  2048,
+			maxIOElements:  1000,
+			skipValidation: true,
+			batchMode:      true,
 		},
 	}
 
@@ -139,7 +161,8 @@ func TestRuptelaParserProcessor(t *testing.T) {
 					MaxIOElements:  tt.maxIOElements,
 					EnableDebug:    false,
 				},
-				logger: nil, // Safe to pass nil for testing
+				logger:    nil, // Safe to pass nil for testing
+				batchMode: tt.batchMode,
 			}
 
 			msg := service.NewMessage([]byte(tt.input))
